@@ -11,9 +11,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/signup")
+    public String signup(@RequestParam String username, @RequestParam String password,
+                         @RequestParam String phoneNumber, @RequestParam String role){
+        if (userService.signup(username, password, phoneNumber, role)){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password){
-        if (userService.authenticate(username, password)){
+        if (userService.login(username, password)){
             return "success";
         }else{
             return "fail";
