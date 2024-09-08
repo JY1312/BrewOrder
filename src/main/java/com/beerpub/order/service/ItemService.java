@@ -14,4 +14,6 @@ public interface ItemService {
                            boolean availability, String picture, String chineseName);
 
     public ItemDTO deleteItem(String name);
+
+    public ItemDTO updateItem(Integer id, ItemDTO itemDTO);
 }

@@ -53,5 +53,35 @@ public class ItemServiceImpl implements ItemService{
         }
     }
 
+    @Override
+    public ItemDTO updateItem(Integer id, ItemDTO itemDTO) {
+        Item item = getItemByID(id);
+        if (item == null){
+            return null;
+        }
+
+        if (itemDTO.getName() != null) {
+            item.setName(itemDTO.getName());
+        }
+        if (itemDTO.getDescription() != null) {
+            item.setDescription(itemDTO.getDescription());
+        }
+        if (itemDTO.getPrice() != null) {
+            item.setPrice(itemDTO.getPrice());
+        }
+        if (itemDTO.getCategory() != null){
+            item.setCategory(itemDTO.getCategory());
+        }
+        if (itemDTO.getAvailability() != null){
+            item.setAvailability(itemDTO.getAvailability());
+        }
+        if (itemDTO.getPicture() != null){
+            item.setPicture(itemDTO.getPicture());
+        }
+        if (itemDTO.getChineseName() != null){
+            item.setChineseName(itemDTO.getChineseName());
+        }
+        return ItemConverter.convertItem(itemRepository.save(item));
+    }
 
 }

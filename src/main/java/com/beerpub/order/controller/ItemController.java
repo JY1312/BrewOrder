@@ -5,10 +5,7 @@ import com.beerpub.order.converter.ItemConverter;
 import com.beerpub.order.dto.ItemDTO;
 import com.beerpub.order.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ItemController {
@@ -35,6 +32,16 @@ public class ItemController {
             return Response.newFail("item doesn't exist");
         }else {
             return Response.newSuccess(itemDTO);
+        }
+    }
+
+    @PatchMapping("/item/update/{id}")
+    public Response updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO){
+        ItemDTO updatedItemDTO = itemService.updateItem(id, itemDTO);
+        if (updatedItemDTO == null){
+            return Response.newFail("item doesn't exist");
+        }else{
+            return Response.newSuccess(updatedItemDTO);
         }
     }
 
