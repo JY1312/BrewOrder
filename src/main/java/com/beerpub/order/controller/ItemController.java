@@ -5,6 +5,7 @@ import com.beerpub.order.converter.ItemConverter;
 import com.beerpub.order.dto.ItemDTO;
 import com.beerpub.order.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,16 @@ public class ItemController {
          }else{
              return Response.newSuccess(itemDTO);
          }
+    }
 
+    @DeleteMapping("item/delete")
+    public Response deleteItem(@RequestParam String name){
+        ItemDTO itemDTO = itemService.deleteItem(name);
+        if (itemDTO == null){
+            return Response.newFail("item doesn't exist");
+        }else {
+            return Response.newSuccess(itemDTO);
+        }
     }
 
 }

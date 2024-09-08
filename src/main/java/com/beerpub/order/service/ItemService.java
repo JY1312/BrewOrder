@@ -12,4 +12,6 @@ public interface ItemService {
 
     public ItemDTO addItem(String name, String description, Integer price, String category,
                            boolean availability, String picture, String chineseName);
+
+    public ItemDTO deleteItem(String name);
 }

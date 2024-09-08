@@ -42,5 +42,16 @@ public class ItemServiceImpl implements ItemService{
         return ItemConverter.convertItem(item);
     }
 
+    @Override
+    public ItemDTO deleteItem(String name) {
+        Item item = itemRepository.getItemByName(name);
+        if (item == null){
+            return null;
+        }else{
+            itemRepository.delete(item);
+            return ItemConverter.convertItem(item);
+        }
+    }
+
 
 }
