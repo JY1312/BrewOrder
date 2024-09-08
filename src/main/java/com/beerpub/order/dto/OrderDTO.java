@@ -1,5 +1,6 @@
 package com.beerpub.order.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ public class OrderDTO {
 
     private Integer userId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderDate;
 
     private String status;
