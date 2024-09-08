@@ -2,6 +2,7 @@ package com.beerpub.order.controller;
 
 import com.beerpub.order.Response;
 import com.beerpub.order.converter.ItemConverter;
+import com.beerpub.order.dao.Item;
 import com.beerpub.order.dto.ItemDTO;
 import com.beerpub.order.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,16 @@ public class ItemController {
             return Response.newFail("item doesn't exist");
         }else{
             return Response.newSuccess(updatedItemDTO);
+        }
+    }
+
+    @GetMapping("/item/get/{id}")
+    public Response getItem(@PathVariable Integer id){
+        Item item = itemService.getItemByID(id);
+        if (item == null){
+            return Response.newFail("item doesn't exist");
+        }else{
+            return Response.newSuccess(ItemConverter.convertItem(item));
         }
     }
 
