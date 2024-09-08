@@ -3,6 +3,8 @@ package com.beerpub.order.converter;
 import com.beerpub.order.dao.Order;
 import com.beerpub.order.dto.OrderDTO;
 
+import java.util.function.Function;
+
 public class OrderConverter {
 
     public static OrderDTO convertOrder(Order order) {
