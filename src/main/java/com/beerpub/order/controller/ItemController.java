@@ -8,7 +8,11 @@ import com.beerpub.order.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class ItemController {
     @Autowired
     private ItemService itemService;
@@ -27,8 +31,8 @@ public class ItemController {
     }
 
     @DeleteMapping("item/delete")
-    public Response deleteItem(@RequestParam String name){
-        ItemDTO itemDTO = itemService.deleteItem(name);
+    public Response deleteItemById(@RequestParam Integer id){
+        ItemDTO itemDTO = itemService.deleteItemById(id);
         if (itemDTO == null){
             return Response.newFail("item doesn't exist");
         }else {
@@ -37,8 +41,8 @@ public class ItemController {
     }
 
     @PatchMapping("/item/update/{id}")
-    public Response updateItem(@PathVariable Integer id, @RequestBody ItemDTO itemDTO){
-        ItemDTO updatedItemDTO = itemService.updateItem(id, itemDTO);
+    public Response updateItemById(@PathVariable Integer id, @RequestBody ItemDTO itemDTO){
+        ItemDTO updatedItemDTO = itemService.updateItemById(id, itemDTO);
         if (updatedItemDTO == null){
             return Response.newFail("item doesn't exist");
         }else{
@@ -47,13 +51,23 @@ public class ItemController {
     }
 
     @GetMapping("/item/get/{id}")
-    public Response getItem(@PathVariable Integer id){
+    public Response getItemById(@PathVariable Integer id){
         Item item = itemService.getItemByID(id);
         if (item == null){
             return Response.newFail("item doesn't exist");
         }else{
             return Response.newSuccess(ItemConverter.convertItem(item));
         }
+    }
+
+    @GetMapping("item/get_all")
+    public Response getAllItem(){
+        List<Item> itemList= itemService.getAll();
+        List<ItemDTO> itemDTOList = new ArrayList<>();
+        for(Item item : itemList){
+            itemDTOList.add(ItemConverter.convertItem(item));
+        }
+        return Response.newSuccess(itemDTOList);
     }
 
 }
