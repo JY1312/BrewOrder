@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     Item getItemByName(String name);
 
+    Item getItemByItemId(Integer id);
+
 }

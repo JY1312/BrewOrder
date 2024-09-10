@@ -43,8 +43,8 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public ItemDTO deleteItem(String name) {
-        Item item = itemRepository.getItemByName(name);
+    public ItemDTO deleteItemById(Integer id) {
+        Item item = itemRepository.getItemByItemId(id);
         if (item == null){
             return null;
         }else{
@@ -54,7 +54,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public ItemDTO updateItem(Integer id, ItemDTO itemDTO) {
+    public ItemDTO updateItemById(Integer id, ItemDTO itemDTO) {
         Item item = getItemByID(id);
         if (item == null){
             return null;
