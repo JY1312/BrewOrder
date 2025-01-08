@@ -26,6 +26,7 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public ItemDTO addItem(String name, String description, Integer price, String category,
                            boolean availability, String picture, String chineseName) {
+
         if (itemRepository.getItemByName(name) != null){
             return null;
         }

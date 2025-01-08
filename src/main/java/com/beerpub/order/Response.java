@@ -12,8 +12,8 @@ public class Response <T> {
         return response;
     }
 
-    public static Response<Void> newFail(String errorMsg){
-        Response<Void> response = new Response<>();
+    public static <T> Response<T> newFail(String errorMsg){
+        Response<T> response = new Response<>();
         response.setErrorMsg(errorMsg);
         response.setSuccess(false);
         return response;

@@ -4,12 +4,14 @@ package com.beerpub.order;
 import com.beerpub.order.dao.Item;
 import com.beerpub.order.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class TestController {
 
     @Autowired
@@ -25,5 +27,9 @@ public class TestController {
         return itemService.getAll();
     }
 
+    @GetMapping("/api/string")
+    public String getString() {
+        return "Hello from Java API";
+    }
 
 }

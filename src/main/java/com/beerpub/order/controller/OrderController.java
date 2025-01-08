@@ -15,7 +15,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/user/{userId}/cart")
-    public Response getCart(@PathVariable Integer userId) {
+    public Response<OrderDTO> getCart(@PathVariable Integer userId) {
         try {
             return Response.newSuccess(orderService.getCart(userId));
         } catch (Exception e) {
@@ -24,7 +24,7 @@ public class OrderController {
     }
 
     @GetMapping("/user/{userId}/orders")
-    public Response getOrdersByUserId(@PathVariable Integer userId) {
+    public Response<List<OrderDTO>> getOrdersByUserId(@PathVariable Integer userId) {
         try {
             List<OrderDTO> orders = orderService.getOrderByUserId(userId);
             return Response.newSuccess(orders);
