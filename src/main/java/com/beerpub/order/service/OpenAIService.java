@@ -1,10 +1,7 @@
 package com.beerpub.order.service;
-import com.beerpub.order.TestAPI;
 import com.openai.client.OpenAIClient;
 
 import com.openai.models.*;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
