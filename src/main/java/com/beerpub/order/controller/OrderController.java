@@ -46,7 +46,7 @@ public class OrderController {
     }
 
     @PostMapping("orders/confirm/{orderId}")
-    public Response confirmOrder(@PathVariable Integer orderId) {
+    public Response<OrderDTO> confirmOrder(@PathVariable Integer orderId) {
         try {
             OrderDTO confirmedOrder = orderService.confirmOrder(orderId);
             return Response.newSuccess(confirmedOrder);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -25,7 +26,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public ItemDTO addItem(String name, String description, Integer price, String category,
-                           boolean availability, String picture, String chineseName) {
+                           boolean availability, String picture, String chineseName, String brewery, String style, Double ibu, Double abv, Integer capacity) {
 
         if (itemRepository.getItemByName(name) != null){
             return null;
@@ -38,6 +39,11 @@ public class ItemServiceImpl implements ItemService{
         item.setAvailability(availability);
         item.setPicture(picture);
         item.setChineseName(chineseName);
+        item.setBrewery(brewery);
+        item.setStyle(style);
+        item.setIbu(ibu);
+        item.setAbv(abv);
+        item.setCapacity(capacity);
 
         itemRepository.save(item);
         return ItemConverter.convertItem(item);
@@ -83,6 +89,24 @@ public class ItemServiceImpl implements ItemService{
             item.setChineseName(itemDTO.getChineseName());
         }
         return ItemConverter.convertItem(itemRepository.save(item));
+    }
+
+    @Override
+    public ItemDTO getItemByName(String name) {
+        Item item = itemRepository.getItemByName(name);
+        if (item == null){
+            return null;
+        }  else {
+            return ItemConverter.convertItem(item);
+        }
+    }
+
+    @Override
+    public List<ItemDTO> getAvailableDrinks() {
+        return itemRepository.findByAvailabilityTrueAndCategory("drink")
+                .stream()
+                .map(ItemConverter::convertItem) // 使用转换器将 Item 转换为 ItemDTO
+                .collect(Collectors.toList()); // 收集转换后的结果
     }
 
 }

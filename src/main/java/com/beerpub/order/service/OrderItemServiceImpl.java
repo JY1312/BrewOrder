@@ -35,7 +35,7 @@ public class OrderItemServiceImpl implements OrderItemService{
 
         Item item = itemRepository.findById(itemId).orElseThrow(() -> new IllegalArgumentException("Item doesn't exist!"));
 
-        if (item.getAvailability() == false) { throw new RuntimeException("Item is not available!");}
+        if (!item.getAvailability()) { throw new RuntimeException("Item is not available!");}
 
         orderRepository.findByOrderId(orderId).orElseThrow(() -> new IllegalArgumentException("Order doesn't exist!"));
 

@@ -31,6 +31,61 @@ public class Item {
     @Column(name = "chinese_name", length = 255)
     private String chineseName;
 
+    @Column(name = "brewery")
+    private String brewery;
+
+    @Column(name = "style", length = 1023)
+    private String style;
+
+    @Column(name = "ibu")
+    private Double ibu;
+
+    @Column(name = "abv")
+    private Double abv;
+
+    @Column(name = "capacity")
+    private Integer capacity;
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Double getAbv() {
+        return abv;
+    }
+
+    public void setAbv(Double abv) {
+        this.abv = abv;
+    }
+
+    public Double getIbu() {
+        return ibu;
+    }
+
+    public void setIbu(Double ibu) {
+        this.ibu = ibu;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getBrewery() {
+        return brewery;
+    }
+
+    public void setBrewery(String brewery) {
+        this.brewery = brewery;
+    }
+
     public Integer getItemId() {
         return itemId;
     }

@@ -1,7 +1,5 @@
 package com.beerpub.order.dto;
 
-import jakarta.persistence.Column;
-
 public class ItemDTO {
 
     private Integer itemId;
@@ -18,6 +16,60 @@ public class ItemDTO {
 
     private String picture;
 
+    private String brewery;
+
+    private String style;
+
+    private Double ibu;
+
+    private Double abv;
+
+    private String chineseName;
+
+    private Integer capacity;
+
+
+    public Double getAbv() {
+        return abv;
+    }
+
+    public void setAbv(Double abv) {
+        this.abv = abv;
+    }
+
+    public String getBrewery() {
+        return brewery;
+    }
+
+    public void setBrewery(String brewery) {
+        this.brewery = brewery;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Double getIbu() {
+        return ibu;
+    }
+
+    public void setIbu(Double ibu) {
+        this.ibu = ibu;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+
     public Integer getItemId() {
         return itemId;
     }
@@ -25,7 +77,6 @@ public class ItemDTO {
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
-
 
     public String getName() {
         return name;
@@ -82,6 +133,4 @@ public class ItemDTO {
     public void setChineseName(String chineseName) {
         this.chineseName = chineseName;
     }
-
-    private String chineseName;
 }

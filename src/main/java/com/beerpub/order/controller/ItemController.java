@@ -48,7 +48,12 @@ public class ItemController {
                     addItemRequest.getItemData().getCategory(),
                     addItemRequest.getItemData().getAvailability(),
                     newFilename,
-                    addItemRequest.getItemData().getChineseName()
+                    addItemRequest.getItemData().getChineseName(),
+                    addItemRequest.getItemData().getBrewery(),
+                    addItemRequest.getItemData().getStyle(),
+                    addItemRequest.getItemData().getIbu(),
+                    addItemRequest.getItemData().getAbv(),
+                    addItemRequest.getItemData().getCapacity()
             );
             return Response.newSuccess(result);
         } catch (RuntimeException e) {
@@ -88,6 +93,18 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/item/get/{name}")
+    public Response<ItemDTO> getItemByName(@PathVariable String name) {
+        try {
+            // 调用 service 层方法，尝试获取数据
+            ItemDTO itemDTO = itemService.getItemByName(name);
+            // 如果成功获取数据，返回成功响应
+            return Response.newSuccess(itemDTO);
+        } catch (RuntimeException e) {
+            return Response.newFail("Item with ID " + name + " doesn't exist");
+        }
+    }
+
     @GetMapping("item/get_all")
     public Response<List<ItemDTO>> getAllItem(){
         List<Item> itemList;
@@ -99,6 +116,17 @@ public class ItemController {
         List<ItemDTO> itemDTOList = new ArrayList<>();
         for(Item item : itemList){
             itemDTOList.add(ItemConverter.convertItem(item));
+        }
+        return Response.newSuccess(itemDTOList);
+    }
+
+    @GetMapping("item/get_avail_drinks")
+    public Response<List<ItemDTO>> getAvailDrinks(){
+        List<ItemDTO> itemDTOList;
+        try {
+            itemDTOList = itemService.getAvailableDrinks();
+        } catch (RuntimeException e) {
+            return Response.newFail("ERROR!");
         }
         return Response.newSuccess(itemDTOList);
     }
