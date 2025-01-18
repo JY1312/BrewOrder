@@ -14,7 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+        "http://localhost:3000",          // 本地开发环境
+        "http://54.252.160.182",          // 服务器的公网 IP
+        "http://mellowcb.com",            // HTTP 部署的域名
+        "https://mellowcb.com",           // HTTPS 部署的域名
+        "http://www.mellowcb.com",        // HTTP 的 www 子域名
+        "https://www.mellowcb.com"        // HTTPS 的 www 子域名
+})
 public class ItemController {
     @Autowired
     private ItemService itemService;
@@ -61,7 +68,7 @@ public class ItemController {
         }
     }
 
-    @DeleteMapping("item/delete")
+    @DeleteMapping("/item/delete")
     public Response<ItemDTO> deleteItemById(@RequestParam Integer id){
         ItemDTO itemDTO = itemService.deleteItemById(id);
         if (itemDTO == null){
@@ -105,7 +112,7 @@ public class ItemController {
         }
     }
 
-    @GetMapping("item/get_all")
+    @GetMapping("/item/get_all")
     public Response<List<ItemDTO>> getAllItem(){
         List<Item> itemList;
         try {
@@ -120,7 +127,7 @@ public class ItemController {
         return Response.newSuccess(itemDTOList);
     }
 
-    @GetMapping("item/get_avail_drinks")
+    @GetMapping("/item/get_avail_drinks")
     public Response<List<ItemDTO>> getAvailDrinks(){
         List<ItemDTO> itemDTOList;
         try {

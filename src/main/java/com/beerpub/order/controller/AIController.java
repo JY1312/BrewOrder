@@ -19,7 +19,14 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(
-        origins = "http://localhost:3000",
+        origins = {
+                "http://localhost:3000",          // 本地开发环境
+                "http://54.252.160.182",          // 服务器的公网 IP
+                "http://mellowcb.com",            // HTTP 部署的域名
+                "https://mellowcb.com",           // HTTPS 部署的域名
+                "http://www.mellowcb.com",        // HTTP 的 www 子域名
+                "https://www.mellowcb.com"        // HTTPS 的 www 子域名
+        },
         allowCredentials = "true" // 允许携带 Cookie
 )
 public class AIController {
@@ -51,12 +58,12 @@ public class AIController {
 
         List<String> recommendedBeers = new ArrayList<>();
         session.setAttribute("recommendedBeers", recommendedBeers);
-        System.out.println(session.getId());
 
         // 调用 OpenAI API 获取回复
         String systemMessage = getSystemMessage(recommendedBeers);
         String aiResponse = openAIService.getResponse(systemMessage, userInput);
         recommendedBeers.add(aiResponse);
+        System.out.println("AI回复：" + aiResponse);
 
         // 构建响应对象
         ItemDTO itemDTO = itemService.getItemByName(aiResponse);
@@ -107,12 +114,13 @@ public class AIController {
     private String getSystemMessage(List<String> recommendedBeers) {
         List<ItemDTO> itemDTOS = itemService.getAvailableDrinks();
         StringBuilder beerString = new StringBuilder();
-        System.out.println(recommendedBeers);
+        System.out.println("总列表：");
         for (ItemDTO itemDTO : itemDTOS) {
             if (recommendedBeers.contains(itemDTO.getChineseName()) || recommendedBeers.contains(itemDTO.getName())) {
                 System.out.println(itemDTO.getName());
                 continue;
             }
+            System.out.println(itemDTO.getName());
             beerString.append("Name: ").append(itemDTO.getName());
             beerString.append(", Description: ").append(itemDTO.getDescription());
             beerString.append(", Style: ").append(itemDTO.getStyle());
